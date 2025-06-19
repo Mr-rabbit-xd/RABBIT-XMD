@@ -1,6 +1,4 @@
 
-// ✅ Decoded & Cleaned WhatsApp Bot Starter Code (Originally Obfuscated)
-
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
