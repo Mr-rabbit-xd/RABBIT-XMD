@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signup | Mr Rabbit</title>
+  <title>Login | Mr Rabbit</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -84,18 +84,6 @@
       cursor: pointer;
     }
 
-    .switch {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .switch a {
-      color: #00ff99;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
     footer {
       text-align: center;
       font-size: 12px;
@@ -103,172 +91,29 @@
       padding: 15px;
       background: #0d1117;
     }
-  </style>
-</head>
-<body>
 
-  <header>
-    <h1>MR RABBIT TOURNAMENT</h1>
-  </header>
-
-  <div class="container">
-    <div class="card">
-      <h2>Create Account</h2>
-      <form id="signupForm">
-        <div class="input-group">
-          <label>Username</label>
-          <input type="text" name="username" required />
-        </div>
-        <div class="input-group">
-          <label>Email</label>
-          <input type="email" name="email" required />
-        </div>
-        <div class="input-group">
-          <label>Password</label>
-          <input type="password" name="password" required />
-        </div>
-        <button type="submit">Signup</button>
-      </form>
-      <div class="switch">
-        Already have an account? <a href="/login">Login</a>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    &copy; 2025 Mr Rabbit Gaming
-  </footer>
-
-  <script>
-    document.getElementById('signupForm').onsubmit = async (e) => {
-      e.preventDefault();
-      const form = e.target;
-
-      const res = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: form.username.value,
-          email: form.email.value,
-          password: form.password.value
-        })
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        localStorage.setItem('token', data.token);
-        alert("Signup successful!");
-        window.location.href = "/success";
-      } else {
-        alert(data.msg);
-      }
-    };
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signup | Mr Rabbit</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background: radial-gradient(circle at top, #0d1117, #151d2e);
-      font-family: 'Outfit', sans-serif;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      text-align: center;
-      padding: 30px;
-    }
-
-    header h1 {
-      color: #00ff99;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 28px;
-      text-shadow: 0 0 5px #00ff99;
-    }
-
-    .container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .card {
-      background: rgba(13, 17, 23, 0.9);
-      padding: 30px;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 0 20px rgba(0,255,153,0.1);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #00ff99;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-    }
-
-    .input-group input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #00ff99;
-      border-radius: 10px;
-      background: transparent;
-      color: white;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .input-group label {
-      display: block;
-      margin-bottom: 5px;
-      color: #ccc;
-      font-size: 14px;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(to right, #00ff99, #00cc88);
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 16px;
+    /* Toast styling */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #00ff99;
       color: #0d1117;
-      cursor: pointer;
-    }
-
-    .switch {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .switch a {
-      color: #00ff99;
-      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
       font-weight: bold;
+      font-family: 'Outfit', sans-serif;
+      box-shadow: 0 0 10px #00ff99;
+      animation: fadeInOut 2s ease-in-out;
+      z-index: 9999;
     }
 
-    footer {
-      text-align: center;
-      font-size: 12px;
-      color: #555;
-      padding: 15px;
-      background: #0d1117;
+    @keyframes fadeInOut {
+      0% { opacity: 0; bottom: 10px; }
+      20% { opacity: 1; bottom: 20px; }
+      80% { opacity: 1; bottom: 20px; }
+      100% { opacity: 0; bottom: 10px; }
     }
   </style>
 </head>
@@ -280,25 +125,18 @@
 
   <div class="container">
     <div class="card">
-      <h2>Create Account</h2>
-      <form id="signupForm">
+      <h2>Login</h2>
+      <form id="loginForm">
         <div class="input-group">
           <label>Username</label>
           <input type="text" name="username" required />
         </div>
         <div class="input-group">
-          <label>Email</label>
-          <input type="email" name="email" required />
-        </div>
-        <div class="input-group">
           <label>Password</label>
           <input type="password" name="password" required />
         </div>
-        <button type="submit">Signup</button>
+        <button type="submit">Login</button>
       </form>
-      <div class="switch">
-        Already have an account? <a href="/login">Login</a>
-      </div>
     </div>
   </div>
 
@@ -307,27 +145,24 @@
   </footer>
 
   <script>
-    document.getElementById('signupForm').onsubmit = async (e) => {
+    document.getElementById('loginForm').onsubmit = async (e) => {
       e.preventDefault();
       const form = e.target;
-
-      const res = await fetch('/api/signup', {
+      const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: form.username.value,
-          email: form.email.value,
           password: form.password.value
         })
       });
-
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('token', data.token);
-        alert("Signup successful!");
-        window.location.href = "/success";
+        document.body.innerHTML += `<div class="toast">✅ ${data.msg}</div>`;
+        setTimeout(() => window.location.href = "/success", 1200);
       } else {
-        alert(data.msg);
+        document.body.innerHTML += `<div class="toast">❌ ${data.msg}</div>`;
       }
     };
   </script>
