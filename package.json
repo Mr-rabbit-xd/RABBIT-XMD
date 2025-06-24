@@ -1,14 +1,9 @@
 {
   "name": "mr-rabbit-login",
   "version": "1.0.0",
-  "description": "Mr Rabbit Tournament Login System",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "echo 'No build needed'"
-  },
-  "engines": {
-    "node": ">=16.0.0"
+    "build": "echo 'No build step'"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -18,4 +13,4 @@
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.0.3"
   }
-      }
+}
