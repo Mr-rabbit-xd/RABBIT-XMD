@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | Mr Rabbit</title>
+  <title>Create Account | Mr Rabbit</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -84,6 +84,18 @@
       cursor: pointer;
     }
 
+    .switch {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .switch a {
+      color: #00ff99;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
     footer {
       text-align: center;
       font-size: 12px;
@@ -92,7 +104,6 @@
       background: #0d1117;
     }
 
-    /* Toast styling */
     .toast {
       position: fixed;
       bottom: 20px;
@@ -125,18 +136,25 @@
 
   <div class="container">
     <div class="card">
-      <h2>Login</h2>
-      <form id="loginForm">
+      <h2>Create Account</h2>
+      <form id="signupForm">
         <div class="input-group">
           <label>Username</label>
           <input type="text" name="username" required />
         </div>
         <div class="input-group">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="input-group">
           <label>Password</label>
           <input type="password" name="password" required />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Sign Up</button>
       </form>
+      <div class="switch">
+        Already have an account? <a href="/login">Login</a>
+      </div>
     </div>
   </div>
 
@@ -145,17 +163,20 @@
   </footer>
 
   <script>
-    document.getElementById('loginForm').onsubmit = async (e) => {
+    document.getElementById('signupForm').onsubmit = async (e) => {
       e.preventDefault();
       const form = e.target;
-      const res = await fetch('/api/login', {
+
+      const res = await fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: form.username.value,
+          email: form.email.value,
           password: form.password.value
         })
       });
+
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('token', data.token);
