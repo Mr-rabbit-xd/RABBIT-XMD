@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup | Mr Rabbit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #0d1117, #151d2e);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 20px 10px;
+    }
+
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 30px;
+      color: #00ff99;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(0,255,153,0.5);
+    }
+
+    header span {
+      color: #ffffff88;
+      font-size: 14px;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(13, 17, 23, 0.8);
+      padding: 40px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 20px rgba(0,255,153,0.15);
+    }
+
+    .card h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00ff99;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 12px;
+      background: transparent;
+      border: 1px solid #00ff99;
+      border-radius: 12px;
+      font-size: 16px;
+      color: white;
+      outline: none;
+    }
+
+    .input-group label {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(13,17,23,0.8);
+      padding: 0 5px;
+      color: #aaa;
+      font-size: 14px;
+      transition: 0.3s ease;
+      pointer-events: none;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #00ff99;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, #00ff99, #00cc88);
+      font-size: 16px;
+      font-weight: bold;
+      color: #0d1117;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #00cc88, #00aa77);
+    }
+
+    .switch {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .switch a {
+      color: #00ff99;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      background: #0d1117;
+      color: #555;
+      border-top: 1px solid #1f1f1f;
+    }
+
+    footer a {
+      color: #00ff99;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MR RABBIT TOURNAMENT</h1>
+    <span>Create your player account</span>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>Signup</h2>
+      <form id="signupForm">
+        <div class="input-group">
+          <input type="text" name="username" placeholder=" " required />
+          <label>Username</label>
+        </div>
+        <div class="input-group">
+          <input type="email" name="email" placeholder=" " required />
+          <label>Email</label>
+        </div>
+        <div class="input-group">
+          <input type="password" name="password" placeholder=" " required />
+          <label>Password</label>
+        </div>
+        <button type="submit">Create Account</button>
+      </form>
+      <div class="switch">
+        Already have an account? <a href="/login.html">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Mr Rabbit Gaming | <a href="#">Privacy</a> • <a href="#">Support</a>
+  </footer>
+
+  <script>
+    document.getElementById('signupForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const res = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: form.username.value,
+          email: form.email.value,
+          password: form.password.value
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.msg);
+        window.location.href = "/login.html";
+      } else {
+        alert(data.msg);
+      }
+    };
+  </script>
+</body>
+</html>
